@@ -4,8 +4,8 @@
   "description": "Esta API permite gestionar las entidades:   - Salas: crear, borrar, modificar y consultar.   - Niveles: crear, borrar, modificar y consultar.   - Dispositivos: crear, borrar, modificar y consultar.   - Notificaciones: enviar notificaciones por email mediante los métodos:       • NotificarPresenciaSala       • NotificarUsuarioValido       • NotificarError ",
   "main": "index.js",
   "scripts": {
-	"prestart": "npm install",
-	"start": "node index.js"
+    "prestart": "npm install",
+    "start": "node index.js"
   },
   "keywords": [
     "swagger"
@@ -15,6 +15,8 @@
   "dependencies": {
     "connect": "^3.2.0",
     "js-yaml": "^3.3.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.12.0",
     "oas3-tools": "^2.2.3"
   }
 }

@@ -344,7 +344,6 @@ components:
         id:
           type: integer
           description: Identificador único (autogenerado)
-          readOnly: true
         codigoSala:
           type: integer
           description: Código identificador de la sala
@@ -368,7 +367,6 @@ components:
         id:
           type: integer
           description: Identificador único (autogenerado)
-          readOnly: true
         nivel:
           type: integer
           description: Nivel
@@ -388,7 +386,6 @@ components:
         id:
           type: integer
           description: Identificador único (autogenerado)
-          readOnly: true
         codigo:
           type: integer
           description: Código del dispositivo
