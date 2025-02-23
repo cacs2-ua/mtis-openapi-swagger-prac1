@@ -70,9 +70,9 @@ exports.notificarUsuarioValido = function(body) {
       }
       const to = empleado.email;
       const subject = 'Notificacion: Usuario valido';
-      const text = `El usuario con NIF ${nif} es válido.`;
+      const text = `El usuario con NIF ${nif} es valido.`;
       await fakeSMTP.sendEmail(to, subject, text);
-      resolve({ message: 'Notificación de usuario válido enviada exitosamente.' });
+      resolve({ message: 'Notificación de usuario valido enviada exitosamente.' });
     } catch (err) {
       reject(err);
     }
