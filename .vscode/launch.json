@@ -9,7 +9,7 @@
             "cwd": "${workspaceFolder}",
             "runtimeArgs": [
                 "--nolazy",
-                "--inspect-brk"
+                "--inspect"
             ],
             "env": {
                 "NODE_ENV": "development"
