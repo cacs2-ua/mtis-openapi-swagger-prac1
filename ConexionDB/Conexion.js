@@ -4,9 +4,9 @@ const mysql = require('mysql2');
 // Asegúrate de ajustar estos valores según la configuración de tu entorno.
 const connection = mysql.createConnection({
   host: 'localhost',
-  user: 'root',           // Cambia por tu usuario de MySQL
-  password: 'root',       // Cambia por tu contraseña de MySQL
-  database: 'edificio_inteligente'  // Cambia por el nombre de tu base de datos
+  user: 'root',           
+  password: 'root',       
+  database: 'edificio_inteligente'  
 });
 
 // Conexión a la base de datos
