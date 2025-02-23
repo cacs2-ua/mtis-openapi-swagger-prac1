@@ -42,7 +42,7 @@ exports.notificarPresenciaSala = function() {
       }
       const emailPromises = registros.map(registro => {
         const to = registro.email;
-        const subject = 'Notificación: Presencia en sala';
+        const subject = 'Notificacion: Presencia en sala';
         const text = `Se ha detectado presencia en la sala: ${registro.salaNombre}`;
         return fakeSMTP.sendEmail(to, subject, text);
       });
@@ -69,7 +69,7 @@ exports.notificarUsuarioValido = function(body) {
         return reject({ message: 'Empleado no encontrado.' });
       }
       const to = empleado.email;
-      const subject = 'Notificación: Usuario válido';
+      const subject = 'Notificacion: Usuario valido';
       const text = `El usuario con NIF ${nif} es válido.`;
       await fakeSMTP.sendEmail(to, subject, text);
       resolve({ message: 'Notificación de usuario válido enviada exitosamente.' });
