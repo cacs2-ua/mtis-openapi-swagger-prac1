@@ -18,7 +18,7 @@ exports.notificarError = function(body) {
         return reject({ message: 'Empleado no encontrado.' });
       }
       const to = empleado.email;
-      const subject = 'Notificación: Error en el sistema';
+      const subject = "Notificacion: Error en el sistema";
       const text = `Se ha detectado el siguiente error: ${error}`;
       await fakeSMTP.sendEmail(to, subject, text);
       resolve({ message: 'Notificación de error enviada exitosamente.' });
