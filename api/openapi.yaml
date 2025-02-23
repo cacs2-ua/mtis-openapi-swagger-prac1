@@ -33,6 +33,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/inline_response_200"
+        "404":
+          description: Recurso no encontrado.
       x-swagger-router-controller: Salas
     post:
       tags:
@@ -52,6 +54,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Sala"
+        "404":
+          description: Recurso no encontrado.
       x-swagger-router-controller: Salas
   /salas/{codigoSala}:
     get:
@@ -121,6 +125,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/inline_response_200"
+        "404":
+          description: Recurso no encontrado.
       x-swagger-router-controller: Niveles
     post:
       tags:
@@ -140,6 +146,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Nivel"
+        "404":
+          description: Recurso no encontrado.
       x-swagger-router-controller: Niveles
   /niveles/{nivel}:
     get:
@@ -209,6 +217,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/inline_response_200"
+        "404":
+          description: Recurso no encontrado.
       x-swagger-router-controller: Dispositivos
     post:
       tags:
@@ -228,6 +238,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Dispositivo"
+        "404":
+          description: Recurso no encontrado.
       x-swagger-router-controller: Dispositivos
   /dispositivos/{codigo}:
     get:
@@ -291,6 +303,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/inline_response_200_1"
+        "404":
+          description: Recurso no encontrado.
       x-swagger-router-controller: Notificaciones
   /notificaciones/usuarioValido:
     post:
@@ -311,6 +325,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/inline_response_200_1"
+        "404":
+          description: Recurso no encontrado.
       x-swagger-router-controller: Notificaciones
   /notificaciones/error:
     post:
@@ -331,6 +347,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/inline_response_200_1"
+        "404":
+          description: Recurso no encontrado.
       x-swagger-router-controller: Notificaciones
 components:
   schemas:
