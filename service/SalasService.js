@@ -5,9 +5,10 @@
  * Borrar una sala por su código
  *
  * codigoSala Integer Código de la sala
+ * wSKey String Clave de autenticación WSKey
  * returns inline_response_200_1
  **/
-exports.borrarSala = function(codigoSala) {
+exports.borrarSala = function(codigoSala,wSKey) {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = {
@@ -26,9 +27,10 @@ exports.borrarSala = function(codigoSala) {
  * Consultar una sala por su código
  *
  * codigoSala Integer Código de la sala
+ * wSKey String Clave de autenticación WSKey
  * returns Sala
  **/
-exports.consultarSala = function(codigoSala) {
+exports.consultarSala = function(codigoSala,wSKey) {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = {
@@ -50,9 +52,10 @@ exports.consultarSala = function(codigoSala) {
  * Modificar una sala existente
  *
  * body Sala 
+ * wSKey String Clave de autenticación WSKey
  * returns inline_response_200
  **/
-exports.modificarSala = function(body) {
+exports.modificarSala = function(body,wSKey) {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = {
@@ -72,9 +75,10 @@ exports.modificarSala = function(body) {
  * Crear una nueva sala
  *
  * body Sala 
+ * wSKey String Clave de autenticación WSKey
  * returns Sala
  **/
-exports.nuevoSala = function(body) {
+exports.nuevoSala = function(body,wSKey) {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = {

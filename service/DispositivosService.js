@@ -5,9 +5,10 @@
  * Borrar un dispositivo
  *
  * codigo Integer Código del dispositivo
+ * wSKey String Clave de autenticación WSKey
  * returns inline_response_200_1
  **/
-exports.borrarDispositivo = function(codigo) {
+exports.borrarDispositivo = function(codigo,wSKey) {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = {
@@ -26,9 +27,10 @@ exports.borrarDispositivo = function(codigo) {
  * Consultar un dispositivo
  *
  * codigo Integer Código del dispositivo
+ * wSKey String Clave de autenticación WSKey
  * returns Dispositivo
  **/
-exports.consultarDispositivo = function(codigo) {
+exports.consultarDispositivo = function(codigo,wSKey) {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = {
@@ -49,9 +51,10 @@ exports.consultarDispositivo = function(codigo) {
  * Modificar un dispositivo existente
  *
  * body Dispositivo 
+ * wSKey String Clave de autenticación WSKey
  * returns inline_response_200
  **/
-exports.modificarDispositivo = function(body) {
+exports.modificarDispositivo = function(body,wSKey) {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = {
@@ -71,9 +74,10 @@ exports.modificarDispositivo = function(body) {
  * Crear un nuevo dispositivo
  *
  * body Dispositivo 
+ * wSKey String Clave de autenticación WSKey
  * returns Dispositivo
  **/
-exports.nuevoDispositivo = function(body) {
+exports.nuevoDispositivo = function(body,wSKey) {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = {

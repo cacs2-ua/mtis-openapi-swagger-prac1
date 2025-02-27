@@ -6,10 +6,11 @@ const fakeSMTP = require('../ConexionFakeSMTP/ConexionFakeSMTP');
 /**
  * Notificar error a un empleado
  *
- * @param {Object} body - Objeto que contiene los parámetros { nif, error }.
- * @returns {Promise<Object>} - Resultado de la notificación.
- */
-exports.notificarError = function(body) {
+ * body Notificaciones_error_body 
+ * wSKey String Clave de autenticación WSKey
+ * returns inline_response_200_1
+ **/
+exports.notificarError = function(body,wSKey) {
   return new Promise(async (resolve, reject) => {
     try {
       const { nif, error } = body;
@@ -28,12 +29,14 @@ exports.notificarError = function(body) {
   });
 }
 
+
 /**
  * Notificar presencia en sala
  *
- * @returns {Promise<Object>} - Resultado de la notificación.
- */
-exports.notificarPresenciaSala = function() {
+ * wSKey String Clave de autenticación WSKey
+ * returns inline_response_200_1
+ **/
+exports.notificarPresenciaSala = function(wSKey) {
   return new Promise(async (resolve, reject) => {
     try {
       const registros = await notificacionesRepository.getPresenciaSalaData();
@@ -57,10 +60,11 @@ exports.notificarPresenciaSala = function() {
 /**
  * Notificar usuario válido
  *
- * @param {Object} body - Objeto que contiene el parámetro { nif }.
- * @returns {Promise<Object>} - Resultado de la notificación.
- */
-exports.notificarUsuarioValido = function(body) {
+ * body Notificaciones_usuarioValido_body 
+ * wSKey String Clave de autenticación WSKey
+ * returns inline_response_200_1
+ **/
+exports.notificarUsuarioValido = function(body,wSKey) {
   return new Promise(async (resolve, reject) => {
     try {
       const { nif } = body;

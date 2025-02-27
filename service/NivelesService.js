@@ -5,10 +5,11 @@ const db = require('../ConexionDB/Conexion');
 /**
  * Borrar un nivel
  *
- * @param {number} nivel - Nivel que se desea borrar.
- * @returns {Promise<Object>} - Objeto con mensaje de resultado.
- */
-exports.borrarNivel = function(nivel) {
+ * nivel Integer Nivel
+ * wSKey String Clave de autenticación WSKey
+ * returns inline_response_200_1
+ **/
+exports.borrarNivel = function(nivel,wSKey) {
   return new Promise((resolve, reject) => {
     db.borrarNivel(nivel)
       .then((affectedRows) => {
@@ -27,10 +28,11 @@ exports.borrarNivel = function(nivel) {
 /**
  * Consultar un nivel
  *
- * @param {number} nivel - Nivel que se desea consultar.
- * @returns {Promise<Object>} - Registro del nivel o mensaje si no existe.
- */
-exports.consultarNivel = function(nivel) {
+ * nivel Integer Nivel
+ * wSKey String Clave de autenticación WSKey
+ * returns Nivel
+ **/
+exports.consultarNivel = function(nivel,wSKey) {
   return new Promise((resolve, reject) => {
     db.consultarNivel(nivel)
       .then((row) => {
@@ -49,12 +51,11 @@ exports.consultarNivel = function(nivel) {
 /**
  * Modificar un nivel existente
  *
- * @param {Object} body - Objeto con la información del nivel a modificar.
- * @param {number} body.nivel - Valor del nivel (identificador).
- * @param {string} body.descripcion - Nueva descripción para el nivel.
- * @returns {Promise<Object>} - Objeto con estado y mensaje del resultado.
- */
-exports.modificarNivel = function(body) {
+ * body Nivel 
+ * wSKey String Clave de autenticación WSKey
+ * returns inline_response_200
+ **/
+exports.modificarNivel = function(body,wSKey) {
   return new Promise((resolve, reject) => {
     db.modificarNivel(body)
       .then((affectedRows) => {
@@ -73,12 +74,11 @@ exports.modificarNivel = function(body) {
 /**
  * Crear un nuevo nivel
  *
- * @param {Object} body - Objeto con la información del nuevo nivel.
- * @param {number} body.nivel - Valor del nivel.
- * @param {string} body.descripcion - Descripción del nivel.
- * @returns {Promise<Object>} - Registro del nivel recién insertado.
- */
-exports.nuevoNivel = function(body) {
+ * body Nivel 
+ * wSKey String Clave de autenticación WSKey
+ * returns Nivel
+ **/
+exports.nuevoNivel = function(body,wSKey) {
   return new Promise((resolve, reject) => {
     db.insertarNivel(body)
       .then((insertId) => {
