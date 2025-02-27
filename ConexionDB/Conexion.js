@@ -106,11 +106,29 @@ function modificarNivel(nivelData) {
   });
 }
 
+function obtenerRestKey() {
+  return new Promise((resolve, reject) => {
+    const query = 'SELECT * FROM restkey WHERE id = ?';
+    connection.query(query, [1], (error, results) => {
+      if (error) {
+        console.error('Error al consultar la restKey:', error);
+        return reject(error);
+      }
+      if(results.length > 0) {
+        resolve(results[0]);
+      } else {
+        resolve(null);
+      }
+    });
+  });
+}
+
 
 module.exports = {
   connection,
   insertarNivel,
   borrarNivel,
   consultarNivel,
-  modificarNivel
+  modificarNivel,
+  obtenerRestKey
 };
