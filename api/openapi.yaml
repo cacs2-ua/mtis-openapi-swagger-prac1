@@ -20,6 +20,8 @@ paths:
       - Salas
       summary: Modificar una sala existente
       operationId: modificarSala
+      parameters:
+      - $ref: '#/components/parameters/WSKey'
       requestBody:
         content:
           application/json:
@@ -41,6 +43,8 @@ paths:
       - Salas
       summary: Crear una nueva sala
       operationId: nuevoSala
+      parameters:
+      - $ref: '#/components/parameters/WSKey'
       requestBody:
         content:
           application/json:
@@ -72,6 +76,7 @@ paths:
         explode: false
         schema:
           type: integer
+      - $ref: '#/components/parameters/WSKey'
       responses:
         "200":
           description: Detalles de la sala.
@@ -96,6 +101,7 @@ paths:
         explode: false
         schema:
           type: integer
+      - $ref: '#/components/parameters/WSKey'
       responses:
         "200":
           description: Sala eliminada exitosamente.
@@ -112,6 +118,8 @@ paths:
       - Niveles
       summary: Modificar un nivel existente
       operationId: modificarNivel
+      parameters:
+      - $ref: '#/components/parameters/WSKey'
       requestBody:
         content:
           application/json:
@@ -133,6 +141,8 @@ paths:
       - Niveles
       summary: Crear un nuevo nivel
       operationId: nuevoNivel
+      parameters:
+      - $ref: '#/components/parameters/WSKey'
       requestBody:
         content:
           application/json:
@@ -164,6 +174,7 @@ paths:
         explode: false
         schema:
           type: integer
+      - $ref: '#/components/parameters/WSKey'
       responses:
         "200":
           description: Detalles del nivel.
@@ -188,6 +199,7 @@ paths:
         explode: false
         schema:
           type: integer
+      - $ref: '#/components/parameters/WSKey'
       responses:
         "200":
           description: Nivel borrado exitosamente.
@@ -204,6 +216,8 @@ paths:
       - Dispositivos
       summary: Modificar un dispositivo existente
       operationId: modificarDispositivo
+      parameters:
+      - $ref: '#/components/parameters/WSKey'
       requestBody:
         content:
           application/json:
@@ -225,6 +239,8 @@ paths:
       - Dispositivos
       summary: Crear un nuevo dispositivo
       operationId: nuevoDispositivo
+      parameters:
+      - $ref: '#/components/parameters/WSKey'
       requestBody:
         content:
           application/json:
@@ -256,6 +272,7 @@ paths:
         explode: false
         schema:
           type: integer
+      - $ref: '#/components/parameters/WSKey'
       responses:
         "200":
           description: Detalles del dispositivo.
@@ -280,6 +297,7 @@ paths:
         explode: false
         schema:
           type: integer
+      - $ref: '#/components/parameters/WSKey'
       responses:
         "200":
           description: Dispositivo borrado exitosamente.
@@ -296,6 +314,8 @@ paths:
       - Notificaciones
       summary: Notificar presencia en sala
       operationId: notificarPresenciaSala
+      parameters:
+      - $ref: '#/components/parameters/WSKey'
       responses:
         "200":
           description: Notificación de presencia en sala enviada exitosamente.
@@ -312,6 +332,8 @@ paths:
       - Notificaciones
       summary: Notificar usuario válido
       operationId: notificarUsuarioValido
+      parameters:
+      - $ref: '#/components/parameters/WSKey'
       requestBody:
         content:
           application/json:
@@ -334,6 +356,8 @@ paths:
       - Notificaciones
       summary: Notificar error a un empleado
       operationId: notificarError
+      parameters:
+      - $ref: '#/components/parameters/WSKey'
       requestBody:
         content:
           application/json:
@@ -446,3 +470,11 @@ components:
         error:
           type: string
           example: Descripción del error
+  parameters:
+    WSKey:
+      name: WSKey
+      in: header
+      description: Clave de autenticación WSKey
+      required: true
+      schema:
+        type: string
