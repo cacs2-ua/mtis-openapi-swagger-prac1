@@ -31,12 +31,18 @@ paths:
       responses:
         "200":
           description: Sala modificada exitosamente.
+          headers:
+            salida:
+              $ref: "#/components/headers/salidaHeader"
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/inline_response_200"
         "404":
           description: Recurso no encontrado.
+          headers:
+            salida:
+              $ref: "#/components/headers/salidaHeader"
       x-swagger-router-controller: Salas
     post:
       tags:
@@ -54,12 +60,18 @@ paths:
       responses:
         "201":
           description: Sala creada exitosamente.
+          headers:
+            salida:
+              $ref: "#/components/headers/salidaHeader"
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Sala"
         "404":
           description: Recurso no encontrado.
+          headers:
+            salida:
+              $ref: "#/components/headers/salidaHeader"
       x-swagger-router-controller: Salas
   /salas/{codigoSala}:
     get:
@@ -80,12 +92,18 @@ paths:
       responses:
         "200":
           description: Detalles de la sala.
+          headers:
+            salida:
+              $ref: "#/components/headers/salidaHeader"
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Sala"
         "404":
           description: Sala no encontrada.
+          headers:
+            salida:
+              $ref: "#/components/headers/salidaHeader"
       x-swagger-router-controller: Salas
     delete:
       tags:
@@ -105,12 +123,18 @@ paths:
       responses:
         "200":
           description: Sala eliminada exitosamente.
+          headers:
+            salida:
+              $ref: "#/components/headers/salidaHeader"
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/inline_response_200_1"
         "404":
           description: Sala no encontrada.
+          headers:
+            salida:
+              $ref: "#/components/headers/salidaHeader"
       x-swagger-router-controller: Salas
   /niveles:
     put:
@@ -129,12 +153,18 @@ paths:
       responses:
         "200":
           description: Nivel modificado exitosamente.
+          headers:
+            salida:
+              $ref: "#/components/headers/salidaHeader"
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/inline_response_200"
         "404":
           description: Recurso no encontrado.
+          headers:
+            salida:
+              $ref: "#/components/headers/salidaHeader"
       x-swagger-router-controller: Niveles
     post:
       tags:
@@ -152,12 +182,18 @@ paths:
       responses:
         "201":
           description: Nivel creado exitosamente.
+          headers:
+            salida:
+              $ref: "#/components/headers/salidaHeader"
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Nivel"
         "404":
           description: Recurso no encontrado.
+          headers:
+            salida:
+              $ref: "#/components/headers/salidaHeader"
       x-swagger-router-controller: Niveles
   /niveles/{nivel}:
     get:
@@ -178,12 +214,18 @@ paths:
       responses:
         "200":
           description: Detalles del nivel.
+          headers:
+            salida:
+              $ref: "#/components/headers/salidaHeader"
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Nivel"
         "404":
           description: Nivel no encontrado.
+          headers:
+            salida:
+              $ref: "#/components/headers/salidaHeader"
       x-swagger-router-controller: Niveles
     delete:
       tags:
@@ -203,12 +245,18 @@ paths:
       responses:
         "200":
           description: Nivel borrado exitosamente.
+          headers:
+            salida:
+              $ref: "#/components/headers/salidaHeader"
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/inline_response_200_1"
         "404":
           description: Nivel no encontrado.
+          headers:
+            salida:
+              $ref: "#/components/headers/salidaHeader"
       x-swagger-router-controller: Niveles
   /dispositivos:
     put:
@@ -227,12 +275,18 @@ paths:
       responses:
         "200":
           description: Dispositivo modificado exitosamente.
+          headers:
+            salida:
+              $ref: "#/components/headers/salidaHeader"
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/inline_response_200"
         "404":
           description: Recurso no encontrado.
+          headers:
+            salida:
+              $ref: "#/components/headers/salidaHeader"
       x-swagger-router-controller: Dispositivos
     post:
       tags:
@@ -250,12 +304,18 @@ paths:
       responses:
         "201":
           description: Dispositivo creado exitosamente.
+          headers:
+            salida:
+              $ref: "#/components/headers/salidaHeader"
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Dispositivo"
         "404":
           description: Recurso no encontrado.
+          headers:
+            salida:
+              $ref: "#/components/headers/salidaHeader"
       x-swagger-router-controller: Dispositivos
   /dispositivos/{codigo}:
     get:
@@ -276,12 +336,18 @@ paths:
       responses:
         "200":
           description: Detalles del dispositivo.
+          headers:
+            salida:
+              $ref: "#/components/headers/salidaHeader"
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Dispositivo"
         "404":
           description: Dispositivo no encontrado.
+          headers:
+            salida:
+              $ref: "#/components/headers/salidaHeader"
       x-swagger-router-controller: Dispositivos
     delete:
       tags:
@@ -301,12 +367,18 @@ paths:
       responses:
         "200":
           description: Dispositivo borrado exitosamente.
+          headers:
+            salida:
+              $ref: "#/components/headers/salidaHeader"
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/inline_response_200_1"
         "404":
           description: Dispositivo no encontrado.
+          headers:
+            salida:
+              $ref: "#/components/headers/salidaHeader"
       x-swagger-router-controller: Dispositivos
   /notificaciones/presenciaSala:
     post:
@@ -319,12 +391,18 @@ paths:
       responses:
         "200":
           description: Notificación de presencia en sala enviada exitosamente.
+          headers:
+            salida:
+              $ref: "#/components/headers/salidaHeader"
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/inline_response_200_1"
         "404":
           description: Recurso no encontrado.
+          headers:
+            salida:
+              $ref: "#/components/headers/salidaHeader"
       x-swagger-router-controller: Notificaciones
   /notificaciones/usuarioValido:
     post:
@@ -343,12 +421,18 @@ paths:
       responses:
         "200":
           description: Notificación de usuario válido enviada exitosamente.
+          headers:
+            salida:
+              $ref: "#/components/headers/salidaHeader"
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/inline_response_200_1"
         "404":
           description: Recurso no encontrado.
+          headers:
+            salida:
+              $ref: "#/components/headers/salidaHeader"
       x-swagger-router-controller: Notificaciones
   /notificaciones/error:
     post:
@@ -367,14 +451,25 @@ paths:
       responses:
         "200":
           description: Notificación de error enviada exitosamente.
+          headers:
+            salida:
+              $ref: "#/components/headers/salidaHeader"
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/inline_response_200_1"
         "404":
           description: Recurso no encontrado.
+          headers:
+            salida:
+              $ref: "#/components/headers/salidaHeader"
       x-swagger-router-controller: Notificaciones
 components:
+  headers:
+    salidaHeader:
+      description: "Detalle de la ejecución del método, incluyendo salidas correctas y errores"
+      schema:
+        type: string
   schemas:
     Sala:
       required:
