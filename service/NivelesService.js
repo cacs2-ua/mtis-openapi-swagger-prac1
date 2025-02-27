@@ -79,21 +79,20 @@ exports.modificarNivel = function(body,wSKey) {
  * wSKey String Clave de autenticación WSKey
  * returns Nivel
  **/
-exports.nuevoNivel = function(body, WSKey) {
+exports.nuevoNivel = function(body, wSKey) {
   return new Promise((resolve, reject) => {
-    // Validación de WSKey
+    // Validación de wSKey
     const VALID_WS_KEY = "soap-mtis-prac1"; // Clave válida configurada (se puede reemplazar por una variable de entorno)
-    if (!WSKey) {
+    if (!wSKey) {
       return reject({ status: 400, message: "WSKey no proporcionada en la cabecera HTTP" });
     }
-    if (WSKey !== VALID_WS_KEY) {
+    if (wSKey !== VALID_WS_KEY) {
       return reject({ status: 403, message: "Acceso no autorizado" });
     }
 
     // Si la WSKey es correcta, se continúa con la operación de inserción
     db.insertarNivel(body)
       .then((insertId) => {
-        // Se asume que "nivel" es un valor único para consultar el registro insertado.
         db.consultarNivel(body.nivel)
           .then((newNivel) => {
             if (newNivel) {
