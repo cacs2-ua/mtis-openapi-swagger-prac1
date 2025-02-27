@@ -57,12 +57,32 @@ module.exports.modificarNivel = function modificarNivel(req, res, next, body, wS
  * Crea un nuevo nivel y responde con el estado HTTP adecuado.
  * Si se crea correctamente, se retorna 201 (Created); de lo contrario, se utiliza 400.
  */
-module.exports.nuevoNivel = function nuevoNivel(req, res, next, body, wSKey) {
-  Niveles.nuevoNivel(body)
+module.exports.nuevoNivel = function nuevoNivel(req, res, next, body, WSKey) {
+  // Función para obtener un encabezado a partir de rawHeaders
+  function getHeaderFromRaw(rawHeaders, headerName) {
+    // rawHeaders es un array tipo: [ 'Accept', 'application/json', 'WSKey', 'soap-mtis-prac1', ...]
+    for (let i = 0; i < rawHeaders.length; i += 2) {
+      if (rawHeaders[i].toLowerCase() === headerName.toLowerCase()) {
+        return rawHeaders[i + 1];
+      }
+    }
+    return null;
+  }
+
+  // Extraemos WSKey de los rawHeaders
+  const keyFromRawHeaders = getHeaderFromRaw(req.rawHeaders, 'WSKey');
+  console.log("Valor de WSKey obtenido desde rawHeaders:", keyFromRawHeaders);
+
+  // Llamamos al servicio pasando la WSKey
+  Niveles.nuevoNivel(body, keyFromRawHeaders)
     .then(function(response) {
-        utils.writeJson(res, response, 201);
+      utils.writeJson(res, response, 201);
     })
     .catch(function(error) {
       utils.writeJson(res, { message: "Error interno del servidor" }, 500);
     });
 };
+
+
+
+
