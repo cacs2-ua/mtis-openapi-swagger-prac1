@@ -84,31 +84,50 @@ exports.nuevoNivel = async function(body, wSKey) {
     // Obtenemos la clave válida de la base de datos
     const validWsKeyRow = await db.obtenerRestKey();
     if (!validWsKeyRow) {
-      throw { status: 500, message: "No se encontró la WSKey en la base de datos" };
+      throw { 
+        status: 500, 
+        message: "No se encontró la WSKey en la base de datos",
+        salida: "Error interno: WSKey no encontrada en la base de datos" 
+      };
     }
     // Suponiendo que la columna que contiene la clave se llama 'restKey'
     const VALID_WS_KEY = validWsKeyRow.rest_key;
 
     // Validamos que se haya proporcionado la WSKey en la solicitud
     if (!wSKey) {
-      throw { status: 400, message: "WSKey no proporcionada en la cabecera HTTP" };
+      throw { 
+        status: 400, 
+        message: "WSKey no proporcionada en la cabecera HTTP",
+        salida: "Error: La cabecera WSKey es obligatoria" 
+      };
     }
     if (wSKey !== VALID_WS_KEY) {
-      throw { status: 403, message: "Acceso no autorizado" };
+      throw { 
+        status: 403, 
+        message: "Acceso no autorizado",
+        salida: "Error: WSKey inválida. Acceso denegado" 
+      };
     }
 
     // Si la WSKey es correcta, se continúa con la inserción
     await db.insertarNivel(body);
     const newNivel = await db.consultarNivel(body.nivel);
     if (newNivel) {
+      // Se añade el detalle de salida al objeto retornado
+      newNivel.salida = "Nivel insertado y recuperado exitosamente";
       return newNivel;
     } else {
-      return { message: "Nivel insertado pero no se pudo recuperar" };
+      return { 
+        message: "Nivel insertado pero no se pudo recuperar",
+        salida: "Nivel insertado, pero ocurrió un inconveniente al recuperarlo" 
+      };
     }
   } catch (error) {
+    // Se re-lanza el error incluyendo ya el detalle en error.salida
     throw error;
   }
 };
+
 
 
 

@@ -66,12 +66,17 @@ module.exports.nuevoNivel = function nuevoNivel(req, res, next, body, wSKey) {
   // Llamamos al servicio pasando la WSKey
   Niveles.nuevoNivel(body, keyFromRawHeaders)
     .then(function(response) {
+      // Suponiendo que el servicio devuelve además un detalle en response.salida
+      res.set('salida', response.salida || 'Operación exitosa: nivel insertado y consultado correctamente');
       utils.writeJson(res, response, 201);
     })
     .catch(function(error) {
-      utils.writeJson(res, { message: "Error interno del servidor" }, 500);
+      // En caso de error, se envía el detalle del error en el header
+      res.set('salida', error.salida || (error.message || "Error interno del servidor"));
+      utils.writeJson(res, { message: error.message || "Error interno del servidor" }, error.status || 404);
     });
 };
+
 
 
 
