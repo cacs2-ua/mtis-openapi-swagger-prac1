@@ -1,6 +1,6 @@
 'use strict';
 
-const db = require('../ConexionDB/Conexion');
+const nivelesRepository = require('../ConexionDB/NivelesRepository');
 var utils = require('../utils/Utils.js');
 
 /**
@@ -10,20 +10,29 @@ var utils = require('../utils/Utils.js');
  * wSKey String Clave de autenticación WSKey
  * returns inline_response_200_1
  **/
-exports.borrarNivel = function(nivel,wSKey) {
-  return new Promise((resolve, reject) => {
-    db.borrarNivel(nivel)
-      .then((affectedRows) => {
-        if (affectedRows > 0) {
-          resolve({ message: "Nivel borrado correctamente" });
-        } else {
-          resolve({ message: "No se encontró el nivel para borrar" });
-        }
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
+exports.borrarNivel = async function(nivel, wSKey) {
+  try {
+    await utils.validarWSKey(wSKey);
+
+    const affectedRows = await nivelesRepository.borrarNivel(nivel);
+    if (affectedRows > 0) {
+      return { 
+        status: 200,
+        message: "Nivel borrado correctamente",
+        salida: "Nivel borrado correctamente"};
+    } else {
+      return { 
+        status: 404,
+        message: "No se encontró el nivel para borrar",
+        salida: "No se encontró el nivel para borrar"};
+    }
+  } catch (error) {
+      throw { 
+        status: 404,
+        message: error.message,
+        salida: error.message 
+      };
+  }
 }
 
 /**
@@ -33,20 +42,32 @@ exports.borrarNivel = function(nivel,wSKey) {
  * wSKey String Clave de autenticación WSKey
  * returns Nivel
  **/
-exports.consultarNivel = function(nivel,wSKey) {
-  return new Promise((resolve, reject) => {
-    db.consultarNivel(nivel)
-      .then((row) => {
-        if (row) {
-          resolve(row);
-        } else {
-          resolve({ message: "Nivel no encontrado" });
-        }
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
+exports.consultarNivel = async function(nivel, wSKey) {
+  try {
+    await utils.validarWSKey(wSKey);
+
+    const row = await nivelesRepository.consultarNivel(nivel);
+    if (row) {
+      return {
+        ...row,
+        status: 200,
+        message: "Nivel consultado correctamente",
+        salida: "Nivel consultado correctamente"
+      };
+    } else {
+      return { 
+        status: 400,
+        message: "Nivel no encontrado",
+        salida: "Nivel no encontrado"
+      };
+    }
+  } catch (error) {
+      throw { 
+        status: 404,  
+        message: error.message,
+        salida: error.message 
+      };
+  }
 }
 
 /**
@@ -56,22 +77,31 @@ exports.consultarNivel = function(nivel,wSKey) {
  * wSKey String Clave de autenticación WSKey
  * returns inline_response_200
  **/
-exports.modificarNivel = function(body,wSKey) {
-  return new Promise((resolve, reject) => {
-    db.modificarNivel(body)
-      .then((affectedRows) => {
-        if (affectedRows > 0) {
-          resolve({ status: 200, message: "Nivel modificado correctamente" });
-        } else {
-          resolve({ status: 404, message: "No se encontró el nivel para modificar" });
-        }
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
+exports.modificarNivel = async function(body, wSKey) {
+  try {
+    console.log(wSKey);
+    await utils.validarWSKey(wSKey);
 
+    const affectedRows = await nivelesRepository.modificarNivel(body);
+    if (affectedRows > 0) {
+      return { 
+        status: 200, 
+        message: "Nivel modificado correctamente",
+        salida: "Nivel modificado correctamente" };
+    } else {
+      return { 
+        status: 404, 
+        message: "No se encontró el nivel para modificar",
+        salida: "No se encontró el nivel para modificar" };
+    }
+  } catch (error) {
+      throw { 
+        status: 404, 
+        message: error.message,
+        salida: error.message 
+      };
+  }
+}
 
 /**
  * Crear un nuevo nivel
@@ -86,21 +116,18 @@ exports.nuevoNivel = async function(body, wSKey) {
     await utils.validarWSKey(wSKey);
 
     // Si la WSKey es correcta, se continúa con la inserción
-    await db.insertarNivel(body);
-    const newNivel = await db.consultarNivel(body.nivel);
-    if (newNivel) {
-      // Se añade el detalle de salida al objeto retornado
-      newNivel.salida = "Nivel insertado y recuperado exitosamente";
-      return newNivel;
-    } else {
-      return { 
-        message: "Nivel insertado pero no se pudo recuperar",
-        salida: "Nivel insertado, pero ocurrió un inconveniente al recuperarlo" 
-      };
-    }
+    await nivelesRepository.insertarNivel(body);
+    return { 
+      status: 201, 
+      message: "Nivel insertado correctamente",
+      salida: "Nivel insertado correctamente" 
+    };
   } catch (error) {
-    // Se re-lanza el error incluyendo ya el detalle en error.salida
-    throw error;
+    throw { 
+      status: 404,
+      message: error.message,
+      salida: error.message 
+    };
   }
 };
 
