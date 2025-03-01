@@ -1,3 +1,5 @@
+const db = require('../ConexionDB/Conexion');
+
 async function validarWSKey(wSKey) {
     // Obtenemos la clave válida de la base de datos
     const validWsKeyRow = await db.obtenerRestKey();
