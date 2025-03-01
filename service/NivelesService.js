@@ -1,6 +1,7 @@
 'use strict';
 
 const db = require('../ConexionDB/Conexion');
+var utils = require('../utils/Utils.js');
 
 /**
  * Borrar un nivel
@@ -82,32 +83,7 @@ exports.modificarNivel = function(body,wSKey) {
 exports.nuevoNivel = async function(body, wSKey) {
   try {
     // Obtenemos la clave válida de la base de datos
-    const validWsKeyRow = await db.obtenerRestKey();
-    if (!validWsKeyRow) {
-      throw { 
-        status: 500, 
-        message: "No se encontró la WSKey en la base de datos",
-        salida: "Error interno: WSKey no encontrada en la base de datos" 
-      };
-    }
-    // Suponiendo que la columna que contiene la clave se llama 'restKey'
-    const VALID_WS_KEY = validWsKeyRow.rest_key;
-
-    // Validamos que se haya proporcionado la WSKey en la solicitud
-    if (!wSKey) {
-      throw { 
-        status: 400, 
-        message: "WSKey no proporcionada en la cabecera HTTP",
-        salida: "Error: La cabecera WSKey es obligatoria" 
-      };
-    }
-    if (wSKey !== VALID_WS_KEY) {
-      throw { 
-        status: 403, 
-        message: "Acceso no autorizado",
-        salida: "Error: WSKey inválida. Acceso denegado" 
-      };
-    }
+    await utils.validarWSKey(wSKey);
 
     // Si la WSKey es correcta, se continúa con la inserción
     await db.insertarNivel(body);
