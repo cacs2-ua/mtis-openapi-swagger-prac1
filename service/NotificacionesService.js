@@ -64,7 +64,7 @@ exports.notificarPresenciaSala = function(wSKey) {
  * wSKey String Clave de autenticación WSKey
  * returns inline_response_200_1
  **/
-exports.notificarUsuarioValido = function(body,wSKey) {
+exports.notificarUsuarioValido = function(body, wSKey) {
   return new Promise(async (resolve, reject) => {
     try {
       const { nif } = body;
@@ -73,12 +73,19 @@ exports.notificarUsuarioValido = function(body,wSKey) {
         return reject({ message: 'Empleado no encontrado.' });
       }
       const to = empleado.email;
-      const subject = 'Notificacion: Usuario valido';
-      const text = `El usuario con NIF ${nif} es valido.`;
+      let subject, text;
+      // Se valida la columna "valido": 1 -> válido, 0 -> no válido.
+      if (empleado.valido === 1) {
+        subject = 'Notificacion: Usuario valido';
+        text = `El usuario con NIF ${nif} es valido.`;
+      } else {
+        subject = 'Notificacion: Usuario no valido';
+        text = `El usuario con NIF ${nif} no es valido.`;
+      }
       await fakeSMTP.sendEmail(to, subject, text);
-      resolve({ message: 'Notificación de usuario valido enviada exitosamente.' });
+      resolve({ message: 'Notificacion de usuario enviada exitosamente.' });
     } catch (err) {
       reject(err);
     }
   });
-}
+};

@@ -23,13 +23,14 @@ function getPresenciaSalaData() {
 }
 
 /**
- * Obtiene el email de un empleado a partir de su NIF.
+ * Obtiene el email y el estado de validez de un empleado a partir de su NIF.
  * @param {string} nif - NIF del empleado.
- * @returns {Promise<Object|null>} - Objeto con el email o null si no se encuentra.
+ * @returns {Promise<Object|null>} - Objeto con { email, valido } o null si no se encuentra.
  */
 function getEmpleadoByNif(nif) {
   return new Promise((resolve, reject) => {
-    const query = 'SELECT email FROM empleados WHERE nifnie = ?';
+    // Se añade el campo "valido" a la consulta
+    const query = 'SELECT email, valido FROM empleados WHERE nifnie = ?';
     connection.query(query, [nif], (err, results) => {
       if (err) {
         console.error('Error en getEmpleadoByNif:', err);
