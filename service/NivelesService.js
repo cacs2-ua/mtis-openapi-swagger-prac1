@@ -1,134 +1,131 @@
+// service/DispositivosService.js
 'use strict';
 
-const nivelesRepository = require('../ConexionDB/NivelesRepository');
-const { nuevoNivel } = require('../controllers/Niveles.js');
-var utils = require('../utils/Utils.js');
+const dispositivosRepository = require('../ConexionDB/DispositivosRepository');
+const utils = require('../utils/Utils.js');
 
 /**
- * Borrar un nivel
+ * Borra un dispositivo.
  *
- * nivel Integer Nivel
+ * codigo Integer Código del dispositivo
  * wSKey String Clave de autenticación WSKey
  * returns inline_response_200_1
  **/
-exports.borrarNivel = async function(nivel, wSKey) {
+exports.borrarDispositivo = async function(codigo, wSKey) {
   try {
     await utils.validarWSKey(wSKey);
 
-    const affectedRows = await nivelesRepository.borrarNivel(nivel);
+    const affectedRows = await dispositivosRepository.borrarDispositivo(codigo);
     if (affectedRows > 0) {
-      return { 
-        message: "Nivel borrado correctamente",
-        salida: "Nivel borrado correctamente"};
-    } else {
-      throw { 
-        message: "No se encontró el nivel para borrar",
-        salida: "No se encontró el nivel para borrar"};
-    }
-  } catch (error) {
-      throw { 
-        message: error.message,
-        salida: error.message 
-      };
-  }
-}
-
-/**
- * Consultar un nivel
- *
- * nivel Integer Nivel
- * wSKey String Clave de autenticación WSKey
- * returns Nivel
- **/
-exports.consultarNivel = async function(nivel, wSKey) {
-  try {
-    await utils.validarWSKey(wSKey);
-
-    const row = await nivelesRepository.consultarNivel(nivel);
-    if (row) {
       return {
-        descripcion: row.descripcion,
-        id: row.id,
-        nivel: row.nivel,
-        salida: "Nivel consultado correctamente"
+        message: "Dispositivo borrado correctamente",
+        salida: "Dispositivo borrado correctamente"
       };
     } else {
-      throw { 
-        status: 404,
-        message: "Nivel no encontrado",
-        salida: "Nivel no encontrado"
+      throw {
+        message: "No se encontró el dispositivo para borrar",
+        salida: "No se encontró el dispositivo para borrar"
       };
     }
   } catch (error) {
-      throw { 
-        status: 404,  
-        message: error.message,
-        salida: error.message 
-      };
-  }
-}
-
-/**
- * Modificar un nivel existente
- *
- * body Nivel 
- * wSKey String Clave de autenticación WSKey
- * returns inline_response_200
- **/
-exports.modificarNivel = async function(body, wSKey) {
-  try {
-    console.log(wSKey);
-    await utils.validarWSKey(wSKey);
-
-    const affectedRows = await nivelesRepository.modificarNivel(body);
-    if (affectedRows > 0) {
-      return { 
-        message: "Nivel modificado correctamente",
-        status: 200, 
-        salida: "Nivel modificado correctamente" };
-    } else {
-      return { 
-        message: "No se encontró el nivel para modificar",
-        status: 404, 
-        salida: "No se encontró el nivel para modificar" };
-    }
-  } catch (error) {
-      throw { 
-        message: error.message,
-        status: 404, 
-        salida: error.message 
-      };
-  }
-}
-
-/**
- * Crear un nuevo nivel
- *
- * body Nivel 
- * wSKey String Clave de autenticación WSKey
- * returns Nivel
- **/
-exports.nuevoNivel = async function(body, wSKey) {
-  try {
-    // Obtenemos la clave válida de la base de datos
-    await utils.validarWSKey(wSKey);
-
-    // Si la WSKey es correcta, se continúa con la inserción
-    await nivelesRepository.insertarNivel(body);
-    let nivelInsertado = await nivelesRepository.consultarNivel(body.nivel);
-    return { 
-      ...nivelInsertado,
-      salida: "Nivel insertado correctamente" 
-    };
-  } catch (error) {
-    throw { 
-      status: 404,
+    throw {
       message: error.message,
-      salida: error.message 
+      salida: error.message
     };
   }
 };
 
+/**
+ * Consulta un dispositivo.
+ *
+ * codigo Integer Código del dispositivo
+ * wSKey String Clave de autenticación WSKey
+ * returns Dispositivo
+ **/
+exports.consultarDispositivo = async function(codigo, wSKey) {
+  try {
+    await utils.validarWSKey(wSKey);
 
+    const row = await dispositivosRepository.consultarDispositivo(codigo);
+    if (row) {
+      return {
+        id: row.id,
+        codigo: row.codigo,
+        descripcion: row.descripcion,
+        salida: "Dispositivo consultado correctamente"
+      };
+    } else {
+      throw {
+        status: 404,
+        message: "Dispositivo no encontrado",
+        salida: "Dispositivo no encontrado"
+      };
+    }
+  } catch (error) {
+    throw {
+      status: 404,
+      message: error.message,
+      salida: error.message
+    };
+  }
+};
 
+/**
+ * Modifica un dispositivo existente.
+ *
+ * body Dispositivo 
+ * wSKey String Clave de autenticación WSKey
+ * returns inline_response_200
+ **/
+exports.modificarDispositivo = async function(body, wSKey) {
+  try {
+    await utils.validarWSKey(wSKey);
 
+    const affectedRows = await dispositivosRepository.modificarDispositivo(body);
+    if (affectedRows > 0) {
+      return {
+        message: "Dispositivo modificado correctamente",
+        status: 200,
+        salida: "Dispositivo modificado correctamente"
+      };
+    } else {
+      return {
+        message: "No se encontró el dispositivo para modificar",
+        status: 404,
+        salida: "No se encontró el dispositivo para modificar"
+      };
+    }
+  } catch (error) {
+    throw {
+      message: error.message,
+      status: 404,
+      salida: error.message
+    };
+  }
+};
+
+/**
+ * Crea un nuevo dispositivo.
+ *
+ * body Dispositivo 
+ * wSKey String Clave de autenticación WSKey
+ * returns Dispositivo
+ **/
+exports.nuevoDispositivo = async function(body, wSKey) {
+  try {
+    await utils.validarWSKey(wSKey);
+
+    await dispositivosRepository.insertarDispositivo(body);
+    let dispositivoInsertado = await dispositivosRepository.consultarDispositivo(body.codigo);
+    return {
+      ...dispositivoInsertado,
+      salida: "Dispositivo insertado correctamente"
+    };
+  } catch (error) {
+    throw {
+      status: 404,
+      message: error.message,
+      salida: error.message
+    };
+  }
+};
