@@ -56,7 +56,7 @@ exports.consultarNivel = async function(nivel, wSKey) {
       };
     } else {
       return { 
-        status: 400,
+        status: 404,
         message: "Nivel no encontrado",
         salida: "Nivel no encontrado"
       };

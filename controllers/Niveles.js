@@ -8,14 +8,14 @@ var ControllersUtils = require('./controllerUtils/controllerUtils');
  * Borra un nivel y responde con el estado HTTP adecuado.
  * Si se borra correctamente, se retorna 200, y si no se encuentra, 404.
  */
-module.exports.borrarNivel = function borrarNivel(req, res, next, nive, wSKey) {
+module.exports.borrarNivel = function borrarNivel(req, res, next, nivel, wSKey) {
   const keyFromRawHeaders = ControllersUtils.getHeaderFromRaw(req.rawHeaders, "wSKey");
 
   Niveles.borrarNivel(nivel, keyFromRawHeaders)
     .then(function(response) {
       // Si el mensaje indica que el nivel fue borrado correctamente, usamos 200, de lo contrario 404.
       res.set('salida', response.salida || 'Operación exitosa: nivel borrado correctamente');
-      utils.writeJson(res, response, statusCode);
+      utils.writeJson(res, { message: response.message || "Operacion realizada correctamente" }, response.status || 200);
     })
     .catch(function(error) {
       res.set('salida', error.salida || (error.message || "Error interno del servidor"));
@@ -33,7 +33,8 @@ module.exports.consultarNivel = function consultarNivel(req, res, next, nivel, w
   Niveles.consultarNivel(nivel, keyFromRawHeaders)
     .then(function(response) {
       res.set('salida', response.salida || 'Operación exitosa: nivel consultado correctamente');
-      utils.writeJson(res, response);
+      const { salida, ...responseWithoutSalida } = response;
+      utils.writeJson(res, responseWithoutSalida, response.status || 200);
     })
     .catch(function(error) {
       res.set('salida', error.salida || (error.message || "Error interno del servidor"));
@@ -52,7 +53,7 @@ module.exports.modificarNivel = function modificarNivel(req, res, next, body, wS
     .then(function(response) {
       // Se asume que el servicio retorna un objeto con una propiedad "status".
       res.set('salida', response.salida || 'Operación exitosa: nivel modificado correctamente');
-      utils.writeJson(res, response);
+      utils.writeJson(res, { message: response.message || "Operacion realizada correctamente" }, response.status || 200);
     })
     .catch(function(error) {
       res.set('salida', error.salida || (error.message || "Error interno del servidor"));
@@ -73,7 +74,7 @@ module.exports.nuevoNivel = function nuevoNivel(req, res, next, body, wSKey) {
     .then(function(response) {
       // Suponiendo que el servicio devuelve además un detalle en response.salida
       res.set('salida', response.salida || 'Operación exitosa: nivel insertado y consultado correctamente');
-      utils.writeJson(res, response, 201);
+      utils.writeJson(res, { message: response.message || "Operacion realizada correctamente" }, response.status || 200);
     })
     .catch(function(error) {
       // En caso de error, se envía el detalle del error en el header
