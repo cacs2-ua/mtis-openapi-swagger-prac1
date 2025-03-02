@@ -77,7 +77,7 @@ module.exports.nuevoNivel = function nuevoNivel(req, res, next, body, wSKey) {
     .then(function(response) {
       const { salida, ...responseSinSalida } = response;
       
-      res.set('salida', salida || 'Operación exitosa: nivel insertado y consultado correctamente');
+      res.set('salida', salida || 'Operación exitosa: nivel insertado correctamente');
       utils.writeJson(res, responseSinSalida, response.status || 201);
     })
     .catch(function(error) {
