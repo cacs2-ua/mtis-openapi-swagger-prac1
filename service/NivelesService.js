@@ -1,131 +1,134 @@
-// service/DispositivosService.js
 'use strict';
 
-const dispositivosRepository = require('../ConexionDB/DispositivosRepository');
-const utils = require('../utils/Utils.js');
+const nivelesRepository = require('../ConexionDB/NivelesRepository');
+const { nuevoNivel } = require('../controllers/Niveles.js');
+var utils = require('../utils/Utils.js');
 
 /**
- * Borra un dispositivo.
+ * Borrar un nivel
  *
- * codigo Integer Código del dispositivo
+ * nivel Integer Nivel
  * wSKey String Clave de autenticación WSKey
  * returns inline_response_200_1
  **/
-exports.borrarDispositivo = async function(codigo, wSKey) {
+exports.borrarNivel = async function(nivel, wSKey) {
   try {
     await utils.validarWSKey(wSKey);
 
-    const affectedRows = await dispositivosRepository.borrarDispositivo(codigo);
+    const affectedRows = await nivelesRepository.borrarNivel(nivel);
     if (affectedRows > 0) {
-      return {
-        message: "Dispositivo borrado correctamente",
-        salida: "Dispositivo borrado correctamente"
-      };
+      return { 
+        message: "Nivel borrado correctamente",
+        salida: "Nivel borrado correctamente"};
     } else {
-      throw {
-        message: "No se encontró el dispositivo para borrar",
-        salida: "No se encontró el dispositivo para borrar"
-      };
+      throw { 
+        message: "No se encontró el nivel para borrar",
+        salida: "No se encontró el nivel para borrar"};
     }
   } catch (error) {
-    throw {
-      message: error.message,
-      salida: error.message
-    };
+      throw { 
+        message: error.message,
+        salida: error.message 
+      };
   }
-};
+}
 
 /**
- * Consulta un dispositivo.
+ * Consultar un nivel
  *
- * codigo Integer Código del dispositivo
+ * nivel Integer Nivel
  * wSKey String Clave de autenticación WSKey
- * returns Dispositivo
+ * returns Nivel
  **/
-exports.consultarDispositivo = async function(codigo, wSKey) {
+exports.consultarNivel = async function(nivel, wSKey) {
   try {
     await utils.validarWSKey(wSKey);
 
-    const row = await dispositivosRepository.consultarDispositivo(codigo);
+    const row = await nivelesRepository.consultarNivel(nivel);
     if (row) {
       return {
-        id: row.id,
-        codigo: row.codigo,
         descripcion: row.descripcion,
-        salida: "Dispositivo consultado correctamente"
+        id: row.id,
+        nivel: row.nivel,
+        salida: "Nivel consultado correctamente"
       };
     } else {
-      throw {
+      throw { 
         status: 404,
-        message: "Dispositivo no encontrado",
-        salida: "Dispositivo no encontrado"
+        message: "Nivel no encontrado",
+        salida: "Nivel no encontrado"
       };
     }
   } catch (error) {
-    throw {
-      status: 404,
-      message: error.message,
-      salida: error.message
-    };
+      throw { 
+        status: 404,  
+        message: error.message,
+        salida: error.message 
+      };
   }
-};
+}
 
 /**
- * Modifica un dispositivo existente.
+ * Modificar un nivel existente
  *
- * body Dispositivo 
+ * body Nivel 
  * wSKey String Clave de autenticación WSKey
  * returns inline_response_200
  **/
-exports.modificarDispositivo = async function(body, wSKey) {
+exports.modificarNivel = async function(body, wSKey) {
   try {
+    console.log(wSKey);
     await utils.validarWSKey(wSKey);
 
-    const affectedRows = await dispositivosRepository.modificarDispositivo(body);
+    const affectedRows = await nivelesRepository.modificarNivel(body);
     if (affectedRows > 0) {
-      return {
-        message: "Dispositivo modificado correctamente",
-        status: 200,
-        salida: "Dispositivo modificado correctamente"
-      };
+      return { 
+        message: "Nivel modificado correctamente",
+        status: 200, 
+        salida: "Nivel modificado correctamente" };
     } else {
-      return {
-        message: "No se encontró el dispositivo para modificar",
-        status: 404,
-        salida: "No se encontró el dispositivo para modificar"
-      };
+      return { 
+        message: "No se encontró el nivel para modificar",
+        status: 404, 
+        salida: "No se encontró el nivel para modificar" };
     }
   } catch (error) {
-    throw {
-      message: error.message,
-      status: 404,
-      salida: error.message
-    };
+      throw { 
+        message: error.message,
+        status: 404, 
+        salida: error.message 
+      };
   }
-};
+}
 
 /**
- * Crea un nuevo dispositivo.
+ * Crear un nuevo nivel
  *
- * body Dispositivo 
+ * body Nivel 
  * wSKey String Clave de autenticación WSKey
- * returns Dispositivo
+ * returns Nivel
  **/
-exports.nuevoDispositivo = async function(body, wSKey) {
+exports.nuevoNivel = async function(body, wSKey) {
   try {
+    // Obtenemos la clave válida de la base de datos
     await utils.validarWSKey(wSKey);
 
-    await dispositivosRepository.insertarDispositivo(body);
-    let dispositivoInsertado = await dispositivosRepository.consultarDispositivo(body.codigo);
-    return {
-      ...dispositivoInsertado,
-      salida: "Dispositivo insertado correctamente"
+    // Si la WSKey es correcta, se continúa con la inserción
+    await nivelesRepository.insertarNivel(body);
+    let nivelInsertado = await nivelesRepository.consultarNivel(body.nivel);
+    return { 
+      ...nivelInsertado,
+      salida: "Nivel insertado correctamente" 
     };
   } catch (error) {
-    throw {
+    throw { 
       status: 404,
       message: error.message,
-      salida: error.message
+      salida: error.message 
     };
   }
 };
+
+
+
+
