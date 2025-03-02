@@ -1,6 +1,7 @@
 'use strict';
 
 const nivelesRepository = require('../ConexionDB/NivelesRepository');
+const { nuevoNivel } = require('../controllers/Niveles.js');
 var utils = require('../utils/Utils.js');
 
 /**
@@ -17,18 +18,15 @@ exports.borrarNivel = async function(nivel, wSKey) {
     const affectedRows = await nivelesRepository.borrarNivel(nivel);
     if (affectedRows > 0) {
       return { 
-        status: 200,
         message: "Nivel borrado correctamente",
         salida: "Nivel borrado correctamente"};
     } else {
-      return { 
-        status: 404,
+      throw { 
         message: "No se encontró el nivel para borrar",
         salida: "No se encontró el nivel para borrar"};
     }
   } catch (error) {
       throw { 
-        status: 404,
         message: error.message,
         salida: error.message 
       };
@@ -49,13 +47,13 @@ exports.consultarNivel = async function(nivel, wSKey) {
     const row = await nivelesRepository.consultarNivel(nivel);
     if (row) {
       return {
-        ...row,
-        status: 200,
-        message: "Nivel consultado correctamente",
+        descripcion: row.descripcion,
+        id: row.id,
+        nivel: row.nivel,
         salida: "Nivel consultado correctamente"
       };
     } else {
-      return { 
+      throw { 
         status: 404,
         message: "Nivel no encontrado",
         salida: "Nivel no encontrado"
@@ -85,19 +83,19 @@ exports.modificarNivel = async function(body, wSKey) {
     const affectedRows = await nivelesRepository.modificarNivel(body);
     if (affectedRows > 0) {
       return { 
-        status: 200, 
         message: "Nivel modificado correctamente",
+        status: 200, 
         salida: "Nivel modificado correctamente" };
     } else {
       return { 
-        status: 404, 
         message: "No se encontró el nivel para modificar",
+        status: 404, 
         salida: "No se encontró el nivel para modificar" };
     }
   } catch (error) {
       throw { 
-        status: 404, 
         message: error.message,
+        status: 404, 
         salida: error.message 
       };
   }
@@ -117,9 +115,9 @@ exports.nuevoNivel = async function(body, wSKey) {
 
     // Si la WSKey es correcta, se continúa con la inserción
     await nivelesRepository.insertarNivel(body);
+    let nivelInsertado = await nivelesRepository.consultarNivel(body.nivel);
     return { 
-      status: 201, 
-      message: "Nivel insertado correctamente",
+      ...nivelInsertado,
       salida: "Nivel insertado correctamente" 
     };
   } catch (error) {
