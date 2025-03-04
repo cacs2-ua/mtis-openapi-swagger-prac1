@@ -66,7 +66,7 @@ module.exports.modificarNivel = function modificarNivel(req, res, next, body, wS
 
 /**
  * Crea un nuevo nivel y responde con el estado HTTP adecuado.
- * Si se crea correctamente, se retorna 201 (Created); de lo contrario, se utiliza 400.
+ * Si se crea correctamente, se retorna 201 (Created); de lo contrario, se utiliza 400. 
  */
 module.exports.nuevoNivel = function nuevoNivel(req, res, next, body, wSKey) {
   // Extraemos WSKey de los rawHeaders
