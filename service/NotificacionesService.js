@@ -21,6 +21,7 @@ exports.notificarError = async function(body, wSKey) {
     if (!empleado) {
       throw { message: 'Empleado no encontrado.', salida: 'Empleado no encontrado.' };
     }
+
     const to = empleado.email;
     const subject = "Notificacion: Error en el sistema";
     const text = `Se ha detectado el siguiente error: ${error}`;
@@ -89,6 +90,15 @@ exports.notificarUsuarioValido = async function(body, wSKey) {
     if (!empleado) {
       throw { message: 'Empleado no encontrado.', salida: 'Empleado no encontrado.' };
     }
+
+    if (empleado.valido === 0) {
+      throw { 
+        status: 404,
+        message: "ERROR: el empleado no es válido.",
+        salida: "ERROR: el empleado no es válido."
+      };
+    }
+
     const to = empleado.email;
     let subject, text;
     // Validación del campo "valido": 1 -> válido, 0 -> no válido.

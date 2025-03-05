@@ -38,9 +38,6 @@ function getEmpleadoByNif(nif) {
       }
       if (results.length > 0) {
         const empleado = results[0];
-        if (empleado.valido === 0) {
-          return reject(new Error('Empleado no válido'));
-        }
         resolve(empleado);
       } else {
         resolve(null);
